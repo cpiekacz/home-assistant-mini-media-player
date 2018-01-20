@@ -1,0 +1,38 @@
+homeassistant:
+  customize:
+    input_text.dummy_player_mini:
+      icon: mdi:cast
+      custom_ui_state_card: state-card-mini-media-player
+      config:
+        player: media_player.mini
+        buttons:
+          - name: Main
+            icon: mdi:music-note
+            script: script.play_rautemusik_main
+          - name: Rock
+            icon: mdi:music-note
+            script: script.play_rautemusik_rock
+frontend:
+  javascript_version: latest
+  extra_html_url:
+    - /local/custom_ui/state-card-mini-media-player.html
+input_text:
+  dummy_player_mini:
+    name: Mini
+script:
+  play_rautemusik_main:
+    sequence:
+      service: media_player.play_media
+      data:
+        media_content_id: http://main-high.rautemusik.fm/stream.mp3
+        media_content_type: MUSIC
+      data_template:
+        entity_id: "{{ entity_id }}"
+  play_rautemusik_rock:
+    sequence:
+      service: media_player.play_media
+      data:
+        media_content_id: http://rock-high.rautemusik.fm/stream.mp3
+        media_content_type: MUSIC
+      data_template:
+        entity_id: "{{ entity_id }}"
