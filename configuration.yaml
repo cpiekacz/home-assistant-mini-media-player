@@ -13,9 +13,10 @@ homeassistant:
             icon: mdi:music-note
             script: script.play_rautemusik_rock
 frontend:
-  javascript_version: latest
   extra_html_url:
     - /local/custom_ui/state-card-mini-media-player.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-mini-media-player_es5.html
 input_text:
   dummy_player_mini:
     name: Mini
