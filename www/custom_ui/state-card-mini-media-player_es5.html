@@ -1,6 +1,6 @@
 <!--
 https://github.com/c727/home-assistant-mini-media-player
-version: 20180128
+version: 20180128.1
 -->
 <dom-module id='state-card-mini-media-player'>
   <template>
@@ -204,7 +204,7 @@ version: 20180128
     },
 
     openInfoCard: function () {     
-      if (this.config.buttons) this.root.getElementById('infoCard').open();
+      this.root.getElementById('infoCard').open();
     },
   });
 </script>
