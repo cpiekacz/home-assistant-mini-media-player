@@ -26,6 +26,7 @@ version: 20180129
         padding: 20px 8px;
         border-radius: 2px;
         font-weight: 500;
+        min-width: 500px;
       }
       @media screen and (max-width: 600px) {
         paper-dialog {
@@ -89,26 +90,25 @@ version: 20180129
           </div>
         </div>
       </template>
-
-      <template is='dom-if' if='[[config.buttons]]'>
-        <paper-dialog id='infoCard'>
-          Choose a playlist for [[computeStateName(playerObj)]]:        
-          <paper-button-group>
-            <template is='dom-repeat' items='[[config.buttons]]'>
-              <paper-button raised on-tap='fireScript'>
-                <template is='dom-if' if='[[config.buttons]]'>
-                  <iron-icon icon='[[item.icon]]'></iron-icon>
-                </template>                
-                [[item.name]]
-              </paper-button>
-            </template>
-          </paper-button-group>
+      <paper-dialog id='infoCard'>
+          <template is='dom-if' if='[[config.buttons]]'>
+            Choose a playlist for [[computeStateName(playerObj)]]:        
+            <paper-button-group>
+              <template is='dom-repeat' items='[[config.buttons]]'>
+                <paper-button raised on-tap='fireScript'>
+                  <template is='dom-if' if='[[config.buttons]]'>
+                    <iron-icon icon='[[item.icon]]'></iron-icon>
+                  </template>                
+                  [[item.name]]
+                </paper-button>
+              </template>
+            </paper-button-group>
+          </template>
           <more-info-media_player
             hass='[[hass]]'
             state-obj='[[playerObj]]'
           ></more-info-media_player>
         </paper-dialog>
-      </template>
     </template>
   </template>
 </dom-module>

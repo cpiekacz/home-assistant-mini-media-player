@@ -26,6 +26,7 @@ version: 20180129
         padding: 20px 8px;
         border-radius: 2px;
         font-weight: 500;
+        min-width: 500px;
       }
       @media screen and (max-width: 600px) {
         paper-dialog {
@@ -88,10 +89,9 @@ version: 20180129
             <paper-icon-button icon='mdi:skip-forward' on-tap='handleNextTap'></paper-icon-button>
           </div>
         </div>
-      </template>
-
-      <template is='dom-if' if='[[config.buttons]]'>
-        <paper-dialog id='infoCard'>
+      </template>      
+      <paper-dialog id='infoCard'>
+        <template is='dom-if' if='[[config.buttons]]'>
           Choose a playlist for [[computeStateName(playerObj)]]:        
           <paper-button-group>
             <template is='dom-repeat' items='[[config.buttons]]'>
@@ -103,12 +103,12 @@ version: 20180129
               </paper-button>
             </template>
           </paper-button-group>
-          <more-info-media_player
-            hass='[[hass]]'
-            state-obj='[[playerObj]]'
-          ></more-info-media_player>
-        </paper-dialog>
-      </template>
+        </template>
+        <more-info-media_player
+          hass='[[hass]]'
+          state-obj='[[playerObj]]'
+        ></more-info-media_player>
+      </paper-dialog>
     </template>
   </template>
 </dom-module>
