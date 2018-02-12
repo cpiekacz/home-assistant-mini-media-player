@@ -67,14 +67,24 @@ version: 20180129.2
           <div class='info'>
             <div class='playnername' has-info$='[[playerObj.hasMediaInfo]]'>[[computeStateName(playerObj)]]</div>
             <div class='mediainfo' hidden='[[!playerObj.hasMediaInfo]]'>[[playerObj.mediaInfo]]</div>
+            <div class='mediainfo' hidden='[[!playerObj.hasSource]]'>[[playerObj.source]]</div>
           </div>
         </div>
         <div class='horizontal layout'>
-          <paper-icon-button icon='mdi:power' on-tap='handlePowerTap'></paper-icon-button>
+          <template is='dom-if' if='[[playerObj.isNormalView]]'>
+            <paper-icon-button icon='mdi:power' on-tap='handlePowerTap'></paper-icon-button>
+          </template>
+          <template is='dom-if' if='[[playerObj.isOnAndCompactView]]'>
+            <paper-icon-button icon='mdi:skip-backward' on-tap='handlePreviousTap'></paper-icon-button>
+            <paper-icon-button icon='mdi:play' on-tap='handlePlayPauseTap' hidden='[[playerObj.isPlaying]]'></paper-icon-button>
+            <paper-icon-button icon='mdi:pause' on-tap='handlePlayPauseTap' hidden='[[!playerObj.isPlaying]]'></paper-icon-button>
+            <paper-icon-button icon='mdi:skip-forward' on-tap='handleNextTap'></paper-icon-button>
+          </template>
         </div>
+        </template>
       </div>
 
-      <template is='dom-if' if='[[!playerObj.isOff]]'>
+      <template is='dom-if' if='[[playerObj.isOnAndNormalView]]'>
         <div class='info horizontal justified layout'>
           <paper-icon-button icon='mdi:volume-off' on-tap='handleVolumeTap' hidden='[[!playerObj.isMuted]]'></paper-icon-button>
           <paper-icon-button icon='mdi:volume-high' on-tap='handleVolumeTap' hidden='[[playerObj.isMuted]]'></paper-icon-button>
@@ -153,8 +163,13 @@ class StateCardMiniMediaPlayer extends Polymer.Element {
           playerObj.mediaInfo = playerObj.attributes.app_name;
         }
       }
+      playerObj.hasSource = (playerObj.attributes.source && playerObj.attributes.source != playerObj.mediaInfo);
+      playerObj.source = playerObj.attributes.source;
       playerObj.isMuted = playerObj.attributes.is_volume_muted;
       playerObj.volumeSliderValue = playerObj.attributes.volume_level * 100;
+      playerObj.isNormalView = !this.config.compact_view;
+      playerObj.isOnAndNormalView = !playerObj.isOff && !this.config.compact_view;
+      playerObj.isOnAndCompactView = !playerObj.isOff && this.config.compact_view;
       return playerObj;
     }
     return null;
